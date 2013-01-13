@@ -6,7 +6,7 @@
  * @license    GPLv3
  * @package    Beam/Admin
  */
-class Beam_Controller_Geocoding extends Zikula_AbstractController
+class Beam_Controller_Admin extends Zikula_AbstractController
 {
 	/**
 	 * @brief Give overview of all admin jobs
@@ -18,11 +18,11 @@ class Beam_Controller_Geocoding extends Zikula_AbstractController
 	 */
 	public function main()
 	{
-		return '<h1>Coming soon</h1>';
+		$this->redirect(ModUtil::url('Beam', 'admin', 'dashboard'));
 	}
 	
 	/**
-	 * @brief Beamer overview
+	 * @brief Display controlling
 	 * @return string HTML
 	 *
 	 * Display overview with all jobs for the displays. Excessive use of JavaScript
@@ -31,9 +31,29 @@ class Beam_Controller_Geocoding extends Zikula_AbstractController
 	 * @version 0.1
 	 * @todo all
 	 */
-	public function viewDisplays()
+	public function dashboard()
 	{
 		return '<h1>Coming soon</h1>';
+	}
+	
+	/**
+	 * @brief Display overview
+	 * @return string HTML
+	 *
+	 * Display overview of all displays.
+	 *
+	 * @author Leonard Marschke
+	 * @version 0.1
+	 * @todo all
+	 */
+	public function viewDisplays()
+	{
+		if(!SecurityUtil::checkPermission('Beam::', 'Displays::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$displays = $this->entityManager->getRepository('Beam_Entity_Displays')->findBy(array());
+		$this->view->assign('displays', $displays);
+		return $this->view->fetch('Admin/ViewDisplays.tpl');
 	}
 	
 	/**
@@ -48,7 +68,11 @@ class Beam_Controller_Geocoding extends Zikula_AbstractController
 	 */
 	public function configureDisplay()
 	{
-		return '<h1>Coming soon</h1>';
+		if(!SecurityUtil::checkPermission('Beam::', 'Displays::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$form = FormUtil::newForm($this->name, $this);
+		return $form->execute('Admin/ConfigureDisplay.tpl', new Beam_Form_Handler_Admin_ConfigureDisplay());
 	}
 	
 	/**
@@ -63,7 +87,17 @@ class Beam_Controller_Geocoding extends Zikula_AbstractController
 	 */
 	public function removeDisplay()
 	{
-		return '<h1>Coming soon</h1>';
+		if(!SecurityUtil::checkPermission('Beam::', 'Displays::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$did = FormUtil::getPassedValue('did', null, 'GET');
+		if($did == null)
+			return LogUtil::registerError($this->__('You must pass a display id (did)'));
+		$display = $this->entityManager->find('Beam_Entity_Displays', $did);
+		$this->entityManager->remove($display);
+		$this->entityManager->flush();
+		LogUtil::registerStatus($this->__('Display removed!'));
+		return $this->redirect(ModUtil::url('Beam', 'admin', 'viewDisplays'));
 	}
 	
 	/**
