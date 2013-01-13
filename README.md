@@ -10,7 +10,7 @@ Requirements (hardware)
 * Server: A fast running Apache, a MySQL database, running PJLink on server and the Zikula Application Framework (perfectly installed ;) ).
 * Clients: Clients should have a easy webbrowser to access the internal Zikula site.
 * A fast network to connect all (as best a own subnet).
-We suggest to use Raspian for your Rasperry Pi's and Ubuntu for your clients/thin clients and main server.
+We suggest to use Ubuntu for your clients/thin clients and main server.
 
 
 
