@@ -13,12 +13,5 @@ Requirements (hardware)
 We suggest to use Raspian for your Rasperry Pi's and Ubuntu for your clients/thin clients and main server.
 
 
-Installation of Raspberry Pi (as Controller)
---------------------------------------------
-* get the newest version of Raspian and image it to a (at minimum) 4GB SD-Card
-* on first start set the following settings in raspi-config: Overclocking -> 950MHz; Please don't forget expand-rootfs for further Software
-* now install the gstreamer omx-plugin. For this step please look in your repositories or - at the moment this manual was written - install it by compiling it yourself. (Download source at gstreamer.freedesktop.org/download)
-* Further steps coming soon
-* For exactly description, scripts and further information please look at /doc/Hardware/Controller/RasPi/
 
 More information coming soon.
