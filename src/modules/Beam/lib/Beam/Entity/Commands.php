@@ -42,14 +42,35 @@ class Beam_Entity_Commands extends Zikula_EntityAccess
 	 *
 	 * @ORM\Column(type="text")
 	 */
-	private $code;
+	private $codeStart;
+
+	/**
+	 * The following are annotations which define the code field.
+	 *
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $codeStop;
+
+	/**
+	 * The following are annotations which define the code field.
+	 *
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $codePauseStart;
+
+	/**
+	 * The following are annotations which define the code field.
+	 *
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $codePauseStop;
 
 	/**
 	 * The following are annotations which define the type field.
 	 *
 	 * @ORM\Column(type="integer")
 	 */
-	private $type;
+	private $jType;
 
 	/**
 	 * The following are annotations which define the category field.
@@ -83,14 +104,29 @@ class Beam_Entity_Commands extends Zikula_EntityAccess
 		return $this->description;
 	}
 
-	public function getCode()
+	public function getCodeStart()
 	{
-		return $this->code;
+		return $this->codeStart;
 	}
 
-	public function getType()
+	public function getCodeStop()
 	{
-		return $this->type;
+		return $this->codeStop;
+	}
+
+	public function getCodePauseStart()
+	{
+		return $this->codePauseStart;
+	}
+
+	public function getCodePauseStop()
+	{
+		return $this->codePauseStop;
+	}
+
+	public function getJType()
+	{
+		return $this->jType;
 	}
 
 	public function getCategory()
@@ -115,14 +151,29 @@ class Beam_Entity_Commands extends Zikula_EntityAccess
 		$this->description = $v;
 	}
 
-	public function setCode($v)
+	public function setCodeStart($v)
 	{
-		$this->code = $v;
+		$this->codeStart = $v;
 	}
 
-	public function setType($v)
+	public function setCodeStop($v)
 	{
-		$this->type = $v;
+		$this->codeStop = $v;
+	}
+
+	public function setCodePauseStart($v)
+	{
+		$this->codePauseStart = $v;
+	}
+
+	public function setCodePauseStop($v)
+	{
+		$this->codePauseStop = $v;
+	}
+
+	public function setJType($v)
+	{
+		$this->jType = $v;
 	}
 
 	public function setCategory($v)

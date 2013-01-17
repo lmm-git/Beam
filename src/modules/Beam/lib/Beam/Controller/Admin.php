@@ -108,26 +108,35 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 *
 	 * @author Leonard Marschke
 	 * @version 0.1
-	 * @todo all
 	 */
+	
 	public function viewJobs()
 	{
-		return '<h1>Coming soon</h1>';
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$jobs = $this->entityManager->getRepository('Beam_Entity_Commands')->findBy(array());
+		$this->view->assign('jobs', $jobs);
+		return $this->view->fetch('Admin/ViewJobs.tpl');
 	}
 	
 	/**
 	 * @brief Add and edit function
 	 * @return string HTML
 	 *
-	 * Add and edit function form with all avaiable jobs. It is intended to use the FormUtil
+	 * Add and edit function form with all avaiable jobs.
 	 *
 	 * @author Leonard Marschke
-	 * @version 0.1
-	 * @todo all
+	 * @version 1.0
 	 */
+	
 	public function configureJob()
 	{
-		return '<h1>Coming soon</h1>';
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$form = FormUtil::newForm($this->name, $this);
+		return $form->execute('Admin/ConfigureJob.tpl', new Beam_Form_Handler_Admin_ConfigureJob());
 	}
 	
 	/**
@@ -138,10 +147,19 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 *
 	 * @author Leonard Marschke
 	 * @version 0.1
-	 * @todo all
 	 */
 	public function removeJob()
 	{
-		return '<h1>Coming soon</h1>';
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$jid = FormUtil::getPassedValue('jid', null, 'GET');
+		if($jid == null)
+			return LogUtil::registerError($this->__('You must pass a job id (jid)'));
+		$job = $this->entityManager->find('Beam_Entity_Commands', $jid);
+		$this->entityManager->remove($job);
+		$this->entityManager->flush();
+		LogUtil::registerStatus($this->__('Job removed!'));
+		return $this->redirect(ModUtil::url('Beam', 'admin', 'viewJobs'));
 	}
 }
