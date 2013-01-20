@@ -31,6 +31,7 @@ class Beam_Form_Handler_Admin_ConfigureJob extends Zikula_Form_AbstractHandler
 		$this->view->assign('job', $job);
 		$typeoptions = array(array('text' => $this->__('Standard job'), 'value' => 1), array('text' => $this->__('Job started with replaced field by wildcard %f')));
 		$this->view->assign('typeoptions', $typeoptions);
+		$this->view->assign('catbase', $this->getVar('GroundCatID'));
 	}
 
 	/**

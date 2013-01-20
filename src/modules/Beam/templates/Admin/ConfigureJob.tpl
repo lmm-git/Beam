@@ -23,7 +23,7 @@
 
 		<div class="z-formrow">
 			{formlabel __text='Category of job' for='category' mandatorysym=true}
-			{formcategoryselector id='category' mandatory=true category=2 editLink=false selectedValue=$job.category}
+			{formcategoryselector id='category' mandatory=true category=$catbase editLink=false selectedValue=$job.category}
 		</div>
 
 		<div class="z-formrow">
