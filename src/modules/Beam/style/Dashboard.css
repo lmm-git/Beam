@@ -1,0 +1,9 @@
+.Beam_Dashboard_InfoFrame {
+	min-height: 200px;
+	width: 280px;
+	background-color: #FFFFFF;
+	border: 1px solid #A3A3A3;
+	margin: 10px;
+	float: left;
+	padding: 10px;
+}

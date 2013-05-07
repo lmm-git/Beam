@@ -18,7 +18,7 @@ class Beam_Form_Handler_Admin_ConfigureDisplay extends Zikula_Form_AbstractHandl
 	 * @return boolean
 	 *
 	 * @author Leonard Marschke
-	 * @version 1.0
+	 * @version 1.1
 	 */
 	function initialize(Zikula_Form_View $view)
 	{
@@ -28,6 +28,19 @@ class Beam_Form_Handler_Admin_ConfigureDisplay extends Zikula_Form_AbstractHandl
 		else
 			$display = array('active' => true);
 		$this->view->assign('display', $display);
+		
+		$typeoptions = array(
+			array(
+				'text' => $this->__('None'),
+				'value' => 0
+			),
+			array(
+				'text' => $this->__('PJLink V1.0'),
+				'value' => 1
+			)
+		);
+		
+		$this->view->assign('typeoptions', $typeoptions);
 	}
 
 	/**
@@ -38,7 +51,7 @@ class Beam_Form_Handler_Admin_ConfigureDisplay extends Zikula_Form_AbstractHandl
 	 *
 	 *
 	 * @author Leonard Marschke
-	 * @version 1.0
+	 * @version 1.1
 	 */
 	function handleCommand(Zikula_Form_View $view, &$args)
 	{
@@ -69,6 +82,8 @@ class Beam_Form_Handler_Admin_ConfigureDisplay extends Zikula_Form_AbstractHandl
 		$display->setPlace($data['place']);
 		$display->setIpDisplay($data['ipDisplay']);
 		$display->setIpController($data['ipController']);
+		$display->setDisplayControlType($data['dCT']);
+		$display->setBlendTime(0);
 		$display->setActive($data['active']);
 		
 		$this->entityManager->persist($display);

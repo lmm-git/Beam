@@ -19,7 +19,7 @@ class Beam_Form_Handler_Admin_ConfigureJob extends Zikula_Form_AbstractHandler
 	 * @return boolean
 	 *
 	 * @author Leonard Marschke
-	 * @version 1.0
+	 * @version 1.1
 	 */
 	function initialize(Zikula_Form_View $view)
 	{
@@ -29,7 +29,16 @@ class Beam_Form_Handler_Admin_ConfigureJob extends Zikula_Form_AbstractHandler
 		else
 			$job = array('active' => true);
 		$this->view->assign('job', $job);
-		$typeoptions = array(array('text' => $this->__('Standard job'), 'value' => 1), array('text' => $this->__('Job started with replaced field by wildcard %f')));
+		$typeoptions = array(
+			array(
+				'text' => $this->__('Standard job'),
+				'value' => 1
+			),
+			array(
+				'text' => $this->__('Job started with replaced field by wildcard %f'),
+				'value' => 2
+			)
+		);
 		$this->view->assign('typeoptions', $typeoptions);
 		$this->view->assign('catbase', $this->getVar('GroundCatID'));
 	}
@@ -56,7 +65,26 @@ class Beam_Form_Handler_Admin_ConfigureJob extends Zikula_Form_AbstractHandler
 		if (!$view->isValid())
 			return false;
 		$data = $view->getValues();
-
+		#print_r($data);
+		#System::shutdown();
+		#return true;
+		//read extra codes
+		$data['extraCode'] = array();
+		for($no = 1; $no < FormUtil::getPassedValue('Beam_ExtraCodes', 0, 'POST'); $no++) {
+			$title = FormUtil::getPassedValue('Beam_ExtraCode' . $no . 'Title', 0, 'POST');
+			LogUtil::registerStatus($title);
+			$code = FormUtil::getPassedValue('Beam_ExtraCode' . $no . 'Code', 0, 'POST');
+			LogUtil::registerStatus($code);
+			$removed = FormUtil::getPassedValue('Beam_ExtraCode' . $no . 'Removed', 0, 'POST');
+			LogUtil::registerStatus($removed);
+			if($title != '' && $code != '' && $removed == '0') {
+				$data['extraCode'][] = array(
+					'title' => $title,
+					'code' => $code
+				);
+			}
+		}
+		
 		$jid = FormUtil::getPassedValue('jid', null, 'GET');
 
 		if($jid != null)

@@ -1,4 +1,5 @@
-{include file='Admin/Header.tpl' __title='Configure job' img='editcopy.png'} 
+{include file='Admin/Header.tpl' __title='Configure job' img='editcopy.png'}
+{pageaddvar name="javascript" value="modules/Beam/javascript/ConfigureJob.js"}
 
 {form cssClass='z-form'}
 	{formerrormessage id='error'}
@@ -28,22 +29,39 @@
 
 		<div class="z-formrow">
 			{formlabel __text='Shell-code of starting job' for='codeStart' mandatorysym=true}
-			{formtextinput textMode='multiline' rows='5' id='codeStart' mandatory=true text=$job.codeStart}
+			{formtextinput textMode='multiline' rows='3' id='codeStart' mandatory=true text=$job.codeStart}
 		</div>
 
 		<div class="z-formrow">
-			{formlabel __text='Shell-code of stopping job' for='codeStop' mandatorysym=true}
-			{formtextinput textMode='multiline' rows='5' id='codeStop' mandatory=true text=$job.codeStop}
+			{formlabel __text='Shell-code of stopping job' for='codeStop' mandatorysym=false}
+			{formtextinput textMode='multiline' rows='3' id='codeStop' mandatory=false text=$job.codeStop}
 		</div>
 
 		<div class="z-formrow">
-			{formlabel __text='Shell-code of starting pause' for='codePauseStart' mandatorysym=true}
-			{formtextinput textMode='multiline' rows='5' id='codePauseStart' mandatory=true text=$job.codePauseStart}
+			{formlabel __text='Shell-code of starting pause' for='codePauseStart' mandatorysym=false}
+			{formtextinput textMode='multiline' rows='3' id='codePauseStart' mandatory=false text=$job.codePauseStart}
 		</div>
 
 		<div class="z-formrow">
-			{formlabel __text='Shell-code of stopping pause' for='codePauseStop' mandatorysym=true}
-			{formtextinput textMode='multiline' rows='5' id='codePauseStop' mandatory=true text=$job.codePauseStop}
+			{formlabel __text='Shell-code of stopping pause' for='codePauseStop' mandatorysym=false}
+			{formtextinput textMode='multiline' rows='3' id='codePauseStop' mandatory=false text=$job.codePauseStop}
+		</div>
+
+		<div id="Beam_ConfigureJob_ExtraCode">
+			{assign var='no' value='1'}
+			{foreach from=$job.extraCode item='item'}
+				{modapifunc modname='Beam' type='Admin' func='getExtraCodeRow' no=$no title=$item.title code=$item.code}
+				{math equation='x+1' x=$no assign='no'}
+			{/foreach}
+		</div>
+
+		<input type="hidden" name="Beam_ExtraCodes" id="Beam_ExtraCodes" value="{$no}">
+		<script type="text/javascript">
+			Beam_ConfigureJob_Jobs = {{$no}};
+		</script>
+
+		<div class="z-formrow" id="Beam_ExtraCodeAdd">
+			<a href="javascript:void(0);" onclick="Beam_ConfigureJob_ExtraCodeAddRow();">{gt text="Add extra code row"}</a>
 		</div>
 
 		<div class="z-formrow">
@@ -54,7 +72,7 @@
 	</fieldset>
 	
 	<div class="z-buttons z-formbuttons">
-		{formbutton commandName='register' __text='Add layer' class='z-bt-ok z-btgreen'}
+		{formbutton commandName='register' __text='Configure job' class='z-bt-ok z-btgreen'}
 		{formbutton commandName='cancel' __text='Cancel' class='z-bt-cancel z-btred'}
 	</div>
 	

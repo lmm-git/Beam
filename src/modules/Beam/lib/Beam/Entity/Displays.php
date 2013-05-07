@@ -22,7 +22,6 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 	 */
 	private $id;
 
-
 	/**
 	 * The following are annotations which define the name field.
 	 *
@@ -57,6 +56,20 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 	 * @ORM\Column(type="string")
 	 */
 	private $ipController;
+
+	/**
+	 * The following are annotations which define the displayControlType field.
+	 *
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $displayControlType;
+
+	/**
+	 * The following are annotations which define the blendTime field.
+	 *
+	 * @ORM\Column(type="float")
+	 */
+	private $blendTime;
 
 	/**
 	 * The following are annotations which define the active field.
@@ -98,6 +111,16 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 		return $this->ipController;
 	}
 
+	public function getDisplayControlType()
+	{
+		return $this->displayControlType;
+	}
+
+	public function getBlendTime()
+	{
+		return $this->blendTime;
+	}
+
 	public function getActive()
 	{
 		return $this->active;
@@ -128,6 +151,16 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 	public function setIpController($v)
 	{
 		$this->ipController = $v;
+	}
+
+	public function setDisplayControlType($v)
+	{
+		$this->displayControlType = $v;
+	}
+
+	public function setBlendTime($v)
+	{
+		$this->blendTime = $v;
 	}
 
 	public function setActive($v)

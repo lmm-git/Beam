@@ -43,12 +43,22 @@ class Beam_Installer extends Zikula_AbstractInstaller
 			));
 		} catch (Exception $e) {
 			echo $e;
+			System::shutdown();
 			return false;
 		}
 		
 		try {
 			DoctrineHelper::createSchema($this->entityManager, array(
 				'Beam_Entity_Commands'
+			));
+		} catch (Exception $e) {
+			echo $e;
+			return false;
+		}
+		
+		try {
+			DoctrineHelper::createSchema($this->entityManager, array(
+				'Beam_Entity_Run'
 			));
 		} catch (Exception $e) {
 			echo $e;
@@ -70,6 +80,18 @@ class Beam_Installer extends Zikula_AbstractInstaller
 	 */
 	public function upgrade($oldversion)
 	{
+		switch ($oldversion) {
+			case '0.0.1':
+				// update the table
+				try {
+					DoctrineHelper::updateSchema($this->entityManager, array('Beam_Entity_Commands'));
+				} catch (Exception $e) {
+					LogUtil::registerError($e->getMessage());
+					return false;
+				}
+		}
+
+		// Update successful
 		return true;
 	}
 
@@ -87,6 +109,9 @@ class Beam_Installer extends Zikula_AbstractInstaller
 		));
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Beam_Entity_Commands'
+		));
+		DoctrineHelper::dropSchema($this->entityManager, array(
+			'Beam_Entity_Run'
 		));
 		
 		//Remove all ModVars

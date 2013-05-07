@@ -13,8 +13,7 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 * @return string HTML
 	 *
 	 * @author Leonard Marschke
-	 * @version 0.1
-	 * @todo all
+	 * @version 1.0
 	 */
 	public function main()
 	{
@@ -33,7 +32,13 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 */
 	public function dashboard()
 	{
-		return '<h1>Coming soon</h1>';
+		if(!SecurityUtil::checkPermission('Beam::', 'Dashboard::', ACCESS_ADMIN))
+			return LogUtil::registerPermissionError();
+		
+		$displays = $this->entityManager->getRepository('Beam_Entity_Displays')->findBy(array());
+		$this->view->assign('displays', $displays);
+
+		return $this->view->fetch('Admin/Dashboard.tpl');
 	}
 	
 	/**

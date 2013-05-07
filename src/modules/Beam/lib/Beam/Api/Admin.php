@@ -55,6 +55,22 @@ class Beam_Api_Admin extends Zikula_AbstractApi
 
 		return $links;
 	}
+	
+	/**
+	 * Get extra code row
+	 *
+	 *
+	 * @author Leonard Marschke
+	 * @return string html string
+	 */
+	public function getExtraCodeRow($args)
+	{
+		$render = Zikula_View::getInstance();
+		$render->assign('no', $args['no']);
+		$render->assign('code', $args['code']);
+		$render->assign('title', $args['title']);
+		return $render->fetch('Adminapi/getExtraCodeRow.tpl');
+	}
 
 }
 

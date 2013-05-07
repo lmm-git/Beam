@@ -66,6 +66,13 @@ class Beam_Entity_Commands extends Zikula_EntityAccess
 	private $codePauseStop;
 
 	/**
+	 * The following are annotations which define the code field.
+	 *
+	 * @ORM\Column(type="array", nullable=true)
+	 */
+	private $extraCode;
+
+	/**
 	 * The following are annotations which define the type field.
 	 *
 	 * @ORM\Column(type="integer")
@@ -124,6 +131,11 @@ class Beam_Entity_Commands extends Zikula_EntityAccess
 		return $this->codePauseStop;
 	}
 
+	public function getExtraCode()
+	{
+		return $this->extraCode;
+	}
+
 	public function getJType()
 	{
 		return $this->jType;
@@ -170,6 +182,12 @@ class Beam_Entity_Commands extends Zikula_EntityAccess
 	{
 		$this->codePauseStop = $v;
 	}
+
+	public function setExtraCode($v)
+	{
+		$this->extraCode = $v;
+	}
+
 
 	public function setJType($v)
 	{

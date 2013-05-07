@@ -27,6 +27,11 @@
 		</div>
 
 		<div class="z-formrow">
+			{formlabel __text='Control type of display' for='dCT' mandatorysym=false}
+			{formdropdownlist id="dCT" size="1" mandatory=false items=$typeoptions selectedValue=$display.displayControlType}
+		</div>
+
+		<div class="z-formrow">
 			{formlabel __text='IP of controller' for='ipController' mandatorysym=true}
 			{formtextinput id='ipController' maxLength='255' mandatory=true text=$display.ipController}
 		</div>
@@ -39,7 +44,7 @@
 	</fieldset>
 	
 	<div class="z-buttons z-formbuttons">
-		{formbutton commandName='register' __text='Add layer' class='z-bt-ok z-btgreen'}
+		{formbutton commandName='register' __text='Configure display' class='z-bt-ok z-btgreen'}
 		{formbutton commandName='cancel' __text='Cancel' class='z-bt-cancel z-btred'}
 	</div>
 	
