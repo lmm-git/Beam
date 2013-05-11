@@ -1,4 +1,4 @@
-{include file='Admin/Header.tpl' __title='Dashboard' img='folder_home.png'}
+{include file='Admin/Includes/Header.tpl' __title='Dashboard' img='folder_home.png'}
 {pageaddvar name='javascript' value='modules/Beam/javascript/Dashboard.js'}
 {pageaddvar name='stylesheet' value='modules/Beam/style/Dashboard.css'}
 
@@ -21,4 +21,4 @@
 </div>
 
 
-{include file='Admin/Footer.tpl'}
+{include file='Admin/Includes/Footer.tpl'}

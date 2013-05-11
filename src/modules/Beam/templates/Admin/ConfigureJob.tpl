@@ -1,4 +1,4 @@
-{include file='Admin/Header.tpl' __title='Configure job' img='editcopy.png'}
+{include file='Admin/Includes/Header.tpl' __title='Configure job' img='editcopy.png'}
 {pageaddvar name="javascript" value="modules/Beam/javascript/ConfigureJob.js"}
 
 {form cssClass='z-form'}
@@ -78,4 +78,4 @@
 	
 {/form}
 
-{include file='Admin/Footer.tpl'}
+{include file='Admin/Includes/Footer.tpl'}

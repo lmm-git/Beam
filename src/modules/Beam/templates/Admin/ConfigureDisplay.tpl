@@ -1,4 +1,4 @@
-{include file='Admin/Header.tpl' __title='Configure display' img='editcopy.png'} 
+{include file='Admin/Includes/Header.tpl' __title='Configure display' img='editcopy.png'} 
 
 {form cssClass='z-form'}
 	{formerrormessage id='error'}
@@ -8,7 +8,7 @@
 		<legend>{gt text='Information of Display'}</legend>
 		<div class="z-formrow">
 			{formlabel __text='Name of display' for='name' mandatorysym=true}
-			{formtextinput id='name' maxLength='255' mandatory=true  text=$display.name}
+			{formtextinput id='name' maxLength='255' mandatory=true text=$display.name}
 		</div>
 
 		<div class="z-formrow">
@@ -50,4 +50,4 @@
 	
 {/form}
 
-{include file='Admin/Footer.tpl'}
+{include file='Admin/Includes/Footer.tpl'}

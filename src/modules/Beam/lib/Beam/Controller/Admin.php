@@ -32,8 +32,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 */
 	public function dashboard()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Dashboard::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Dashboard::', ACCESS_COMMENT)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$displays = $this->entityManager->getRepository('Beam_Entity_Displays')->findBy(array());
 		$this->view->assign('displays', $displays);
@@ -53,8 +54,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 */
 	public function viewDisplays()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Displays::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$displays = $this->entityManager->getRepository('Beam_Entity_Displays')->findBy(array());
 		$this->view->assign('displays', $displays);
@@ -73,8 +75,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 */
 	public function configureDisplay()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Displays::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$form = FormUtil::newForm($this->name, $this);
 		return $form->execute('Admin/ConfigureDisplay.tpl', new Beam_Form_Handler_Admin_ConfigureDisplay());
@@ -92,8 +95,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 */
 	public function removeDisplay()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Displays::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$did = FormUtil::getPassedValue('did', null, 'GET');
 		if($did == null)
@@ -117,8 +121,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	
 	public function viewJobs()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$jobs = $this->entityManager->getRepository('Beam_Entity_Commands')->findBy(array());
 		$this->view->assign('jobs', $jobs);
@@ -137,8 +142,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	
 	public function configureJob()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$form = FormUtil::newForm($this->name, $this);
 		return $form->execute('Admin/ConfigureJob.tpl', new Beam_Form_Handler_Admin_ConfigureJob());
@@ -155,8 +161,9 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 	 */
 	public function removeJob()
 	{
-		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+		if(!SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
+		}
 		
 		$jid = FormUtil::getPassedValue('jid', null, 'GET');
 		if($jid == null)
@@ -166,5 +173,46 @@ class Beam_Controller_Admin extends Zikula_AbstractController
 		$this->entityManager->flush();
 		LogUtil::registerStatus($this->__('Job removed!'));
 		return $this->redirect(ModUtil::url('Beam', 'admin', 'viewJobs'));
+	}
+	
+	/**
+	 * @brief View plugins function
+	 * @return string HTML
+	 *
+	 * View plugins function with description
+	 *
+	 * @author Leonard Marschke
+	 * @version 1.0
+	 */
+	public function viewPlugins()
+	{
+		if(!SecurityUtil::checkPermission('Beam::', 'Plugins::', ACCESS_ADMIN)) {
+			return LogUtil::registerPermissionError();
+		}
+		
+		$plugins = $this->entityManager->getRepository('Beam_Entity_Plugin')->findBy(array());
+		$this->view->assign('plugins', $plugins);
+		
+		return $this->view->fetch('Admin/ViewPlugins.tpl');
+	}
+	
+	/**
+	 * @brief Read plugins function
+	 * @return redirection
+	 *
+	 * reread plugins
+	 *
+	 * @author Leonard Marschke
+	 * @version 1.0
+	 */
+	public function readPlugins()
+	{
+		if(!SecurityUtil::checkPermission('Beam::', 'Plugins::', ACCESS_ADMIN)) {
+			return LogUtil::registerPermissionError();
+		}
+		
+		ModUtil::apiFunc($this->name, 'Plugin', 'refreshPlugins');
+		
+		return $this->redirect(ModUtil::url($this->name, 'admin', 'viewPlugins'));
 	}
 }

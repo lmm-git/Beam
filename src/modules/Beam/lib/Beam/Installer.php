@@ -65,6 +65,15 @@ class Beam_Installer extends Zikula_AbstractInstaller
 			return false;
 		}
 		
+		try {
+			DoctrineHelper::createSchema($this->entityManager, array(
+				'Beam_Entity_Plugin'
+			));
+		} catch (Exception $e) {
+			echo $e;
+			return false;
+		}
+		
 		$this->setVars($this->getDefaultModVars());
 		// Initialisation successful
 		return true;
@@ -85,6 +94,34 @@ class Beam_Installer extends Zikula_AbstractInstaller
 				// update the table
 				try {
 					DoctrineHelper::updateSchema($this->entityManager, array('Beam_Entity_Commands'));
+				} catch (Exception $e) {
+					LogUtil::registerError($e->getMessage());
+					return false;
+				}
+			case '0.0.2':
+				try {
+					DoctrineHelper::createSchema($this->entityManager, array(
+						'Beam_Entity_Plugin'
+					));
+				} catch (Exception $e) {
+					echo $e;
+					return false;
+				}
+			case '0.0.3':
+				DoctrineHelper::dropSchema($this->entityManager, array(
+					'Beam_Entity_Plugin'
+				));
+				try {
+					DoctrineHelper::createSchema($this->entityManager, array(
+						'Beam_Entity_Plugin'
+					));
+				} catch (Exception $e) {
+					echo $e;
+					return false;
+				}
+			case '0.0.4':
+				try {
+					DoctrineHelper::updateSchema($this->entityManager, array('Beam_Entity_Displays'));
 				} catch (Exception $e) {
 					LogUtil::registerError($e->getMessage());
 					return false;
@@ -113,6 +150,10 @@ class Beam_Installer extends Zikula_AbstractInstaller
 		DoctrineHelper::dropSchema($this->entityManager, array(
 			'Beam_Entity_Run'
 		));
+		DoctrineHelper::dropSchema($this->entityManager, array(
+			'Beam_Entity_Plugin'
+		));
+		
 		
 		//Remove all ModVars
 		$this->delVars();

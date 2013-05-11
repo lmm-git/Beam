@@ -18,7 +18,7 @@ class Beam_Api_Admin extends Zikula_AbstractApi
 	{
 		$links = array ();
 
-		if(SecurityUtil::checkPermission('Beam::', '::', ACCESS_ADMIN))
+		if(SecurityUtil::checkPermission('Beam::', '::', ACCESS_EDIT))
 			$links[] = array (
 				'url'  => ModUtil::url('Beam', 'admin', 'dashboard'),
 				'text' => $this->__('Dashboard'),
@@ -51,6 +51,19 @@ class Beam_Api_Admin extends Zikula_AbstractApi
 				'url'  => ModUtil::url('Beam', 'admin', 'configureJob'),
 				'text' => $this->__('Add job'),
 				'class'=> 'z-icon-es-new'
+			);
+
+		if(SecurityUtil::checkPermission('Beam::', 'Jobs::', ACCESS_ADMIN))
+			$links[] = array (
+				'url'  => ModUtil::url('Beam', 'admin', 'viewPlugins'),
+				'text' => $this->__('View plugins'),
+				'class'=> 'z-icon-es-view',
+				'links' => array(
+					array(
+						'url' => ModUtil::url('Beam', 'admin', 'readPlugins'),
+						'text' => $this->__('Refresh plugin-directory')
+					)
+				)
 			);
 
 		return $links;

@@ -72,6 +72,13 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 	private $blendTime;
 
 	/**
+	 * The following are annotations which define the plugins field.
+	 *
+	 * @ORM\Column(type="array")
+	 */
+	private $plugins;
+
+	/**
 	 * The following are annotations which define the active field.
 	 *
 	 * @ORM\Column(type="boolean")
@@ -121,6 +128,11 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 		return $this->blendTime;
 	}
 
+	public function getPlugins()
+	{
+		return $this->plugins;
+	}
+
 	public function getActive()
 	{
 		return $this->active;
@@ -161,6 +173,11 @@ class Beam_Entity_Displays extends Zikula_EntityAccess
 	public function setBlendTime($v)
 	{
 		$this->blendTime = $v;
+	}
+
+	public function setPlugins($v)
+	{
+		$this->plugins = $v;
 	}
 
 	public function setActive($v)

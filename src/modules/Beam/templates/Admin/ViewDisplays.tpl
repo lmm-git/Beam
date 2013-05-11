@@ -1,4 +1,4 @@
-{include file='Admin/Header.tpl' __title='View displays' img='package_editors.png'} 
+{include file='Admin/Includes/Header.tpl' __title='View displays' img='package_editors.png'} 
 
 {ajaxheader ui=true tooltips=true}
 
@@ -30,4 +30,4 @@
 	</tbody>
 </table>
 
-{include file='Admin/Footer.tpl'}
+{include file='Admin/Includes/Footer.tpl'}
